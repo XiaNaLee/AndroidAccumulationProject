@@ -24,8 +24,9 @@ android {
         multiDexEnabled = true
     }
     buildTypes {
-        release {
-            minifyEnabled false
+        debug {
+            //是否打开混淆
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
