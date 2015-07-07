@@ -1,0 +1,2 @@
+# AndroidAccumulationProject
+android项目，整理了工具类，整合了当前主流的常用技术
