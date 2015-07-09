@@ -4,8 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidAccumulationProject.iml" filepath="$PROJECT_DIR$/AndroidAccumulationProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appResource/appResource.iml" filepath="$PROJECT_DIR$/appResource/appResource.iml" />
+      <module fileurl="file://$PROJECT_DIR$/customWidget/customWidget.iml" filepath="$PROJECT_DIR$/customWidget/customWidget.iml" />
       <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/widgetutils/widgetutils.iml" filepath="$PROJECT_DIR$/widgetutils/widgetutils.iml" />
     </modules>
   </component>
 </project>

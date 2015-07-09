@@ -16,6 +16,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    //修改工程的目录结构
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -30,7 +31,6 @@ android {
 
         // Move the tests to tests/java, tests/res, etc...
         androidTest.setRoot('tests')
-
         // Move the build types to build-types/<type>
         // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
         // This moves them out of them default location under src/<type>/... which would
@@ -40,12 +40,11 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
-
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.1.0'
-    compile 'in.srain.cube:ultra-ptr:1.0.9'
-    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile project(':customWidget')
+    compile project(':utils')
 }
