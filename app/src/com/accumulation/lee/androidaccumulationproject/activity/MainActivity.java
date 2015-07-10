@@ -55,7 +55,6 @@ public class MainActivity extends BaseActivity {
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                long time = 0;
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         // When pressed start solving the spring to 1.
