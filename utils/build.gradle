@@ -50,4 +50,5 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.okio:okio:1.4.0'
     compile 'com.facebook.fresco:fresco:0.5.3+'
+    compile files('libs/fastjson-1.1.45.android.jar')
 }

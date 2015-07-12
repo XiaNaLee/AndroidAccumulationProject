@@ -87,6 +87,7 @@
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="imagepipeline-0.5.3" level="project" />
+    <orderEntry type="library" exported="" name="fastjson-1.1.45.android" level="project" />
     <orderEntry type="library" exported="" name="drawee-0.5.3" level="project" />
     <orderEntry type="library" exported="" name="fbcore-0.5.3" level="project" />
     <orderEntry type="library" exported="" name="bolts-android-1.1.4" level="project" />
