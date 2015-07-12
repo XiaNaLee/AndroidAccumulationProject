@@ -1,26 +1,31 @@
 package com.accumulation.lee.androidaccumulationproject.activity;
 
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.accumulation.lee.androidaccumulationproject.R;
-import com.facebook.rebound.BaseSpringSystem;
-import com.facebook.rebound.SimpleSpringListener;
-import com.facebook.rebound.Spring;
-import com.facebook.rebound.SpringSystem;
-import com.facebook.rebound.SpringUtil;
+import com.accumulation.lee.androidaccumulationproject.adapter.MyRecyclerAdapter;
+import com.lee.customwidget.DividerItemDecoration;
+import com.lee.customwidget.RecyclerItemClickListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import jp.wasabeef.recyclerview.animators.FadeInAnimator;
 
 /**
  * Created by liyong on 15/5/11.
  */
 public class MainActivity extends BaseActivity {
-    private ImageView imageView;
-    private final BaseSpringSystem mSpringSystem = SpringSystem.create();
-    private final ExampleSpringListener mSpringListener = new ExampleSpringListener();
-    private Spring mScaleSpring;
+    private RecyclerView mRecyclerView;
+    private List<String> myDataset;
+    private LinearLayoutManager mLayoutManager;
+    private GridLayoutManager mGridLayoutManager;
+    private MyRecyclerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,75 +44,53 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void findViews() {
-        imageView = getView(R.id.iv_click);
+        mRecyclerView = getView(R.id.recyclerView);
     }
 
     @Override
     protected void initDataBeforeSetViews() {
-        // Create the animation spring.
-        mScaleSpring = mSpringSystem.createSpring();
+        myDataset = new ArrayList<>();
+        String []functions=getResources().getStringArray(R.array.functions);
+        myDataset.addAll(Arrays.asList(functions));
+       // mGridLayoutManager=new GridLayoutManager(this,2);
+        mLayoutManager = new LinearLayoutManager(this);
     }
 
 
     @Override
     protected void setViews() {
-        // Add an OnTouchListener to the root view.
-        imageView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // When pressed start solving the spring to 1.
-                        mScaleSpring.setEndValue(1);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        imageView.performClick();
-                        mScaleSpring.setEndValue(0);
-                        break;
-                    case MotionEvent.ACTION_CANCEL:
-                        // When released start solving the spring to 0.
-                        mScaleSpring.setEndValue(0);
-                        break;
-
-                }
-                return true;
-            }
-        });
-     imageView.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-             Toast.makeText(MainActivity.this,"click",Toast.LENGTH_SHORT).show();
-         }
-     });
-
+        mRecyclerView.setHasFixedSize(true);
+        //mLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, 5, R.color.blue));
+        //mRecyclerView.addItemDecoration(new SpacesItemDecoration(DisplayUtil.dip2px(this,5)));
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, onItemClickListener));
+        mRecyclerView.setItemAnimator(new FadeInAnimator());//设置item的动画
+        mRecyclerView.getItemAnimator().setAddDuration(500);
+        mRecyclerView.getItemAnimator().setRemoveDuration(500);
+        mAdapter = new MyRecyclerAdapter(this, myDataset);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
-    private class ExampleSpringListener extends SimpleSpringListener {
-        @Override
-        public void onSpringUpdate(Spring spring) {
-            // On each update of the spring value, we adjust the scale of the image view to match the
-            // springs new value. We use the SpringUtil linear interpolation function mapValueFromRangeToRange
-            // to translate the spring's 0 to 1 scale to a 100% to 50% scale range and apply that to the View
-            // with setScaleX/Y. Note that rendering is an implementation detail of the application and not
-            // Rebound itself. If you need Gingerbread compatibility consider using NineOldAndroids to update
-            // your view properties in a backwards compatible manner.
-            float mappedValue = (float) SpringUtil.mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0.5);
-            imageView.setScaleX(mappedValue);
-            imageView.setScaleY(mappedValue);
-        }
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Add a listener to the spring when the Activity resumes.
-        mScaleSpring.addListener(mSpringListener);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // Remove the listener to the spring when the Activity pauses.
-        mScaleSpring.removeListener(mSpringListener);
     }
+
+    private RecyclerItemClickListener.OnItemClickListener onItemClickListener = new RecyclerItemClickListener.OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            if (position % 2 == 0) {
+                mAdapter.remove(position);
+            } else {
+                mAdapter.add(position,String.valueOf(position));
+            }
+        }
+    };
 }

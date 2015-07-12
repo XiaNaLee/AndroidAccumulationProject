@@ -1,0 +1,12 @@
+<resources>
+   <color name="red">#FF0000</color>
+   <color name="blue">#0000FF</color>
+   <color name="grey">#BEBEBE</color>
+   <color name="darkSeaGreen">#C1FFC1</color>
+   <color name="yellow">#FFFF00</color>
+   <color name="yellow2">#EEEE00</color>
+   <color name="yellow3">#CDCD00</color>
+   <color name="yellow4">#8B8B00</color>
+   <color name="white">#FFFFFF</color>
+   <color name="black">#000000</color>
+</resources>
