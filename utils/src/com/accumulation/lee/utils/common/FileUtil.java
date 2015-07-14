@@ -6,9 +6,6 @@ import android.os.StatFs;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 
-import com.accumulation.lee.utils.common.ListUtil;
-import com.accumulation.lee.utils.common.StringUtils;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -36,6 +33,14 @@ public class FileUtil {
     public static boolean hasSdcard() {
         String status = Environment.getExternalStorageState();
         return status.equals(Environment.MEDIA_MOUNTED)?true:false;
+    }
+
+    public static String getSDPath(){
+        String sd="";
+        if(hasSdcard()){
+            sd=Environment.getExternalStorageDirectory().getAbsolutePath();
+        }
+        return  sd;
     }
 
     /**

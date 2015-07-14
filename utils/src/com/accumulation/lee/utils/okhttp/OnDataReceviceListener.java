@@ -7,5 +7,5 @@ public interface OnDataReceviceListener {
 
     void onSuccess(String url,String jsonResponse);
 
-    void onFailed(String url);
+    void onFailed(String url,int errorCode);
 }

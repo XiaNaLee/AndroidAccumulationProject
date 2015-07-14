@@ -8,12 +8,15 @@ import android.view.View;
 
 import com.accumulation.lee.androidaccumulationproject.R;
 import com.accumulation.lee.androidaccumulationproject.adapter.MyRecyclerAdapter;
+import com.accumulation.lee.utils.okhttp.OkHttpUtil;
+import com.accumulation.lee.utils.okhttp.OnDataReceviceListener;
 import com.lee.customwidget.DividerItemDecoration;
 import com.lee.customwidget.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 import jp.wasabeef.recyclerview.animators.FadeInAnimator;
 
@@ -83,14 +86,32 @@ public class MainActivity extends BaseActivity {
         super.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     private RecyclerItemClickListener.OnItemClickListener onItemClickListener = new RecyclerItemClickListener.OnItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            if (position % 2 == 0) {
-                mAdapter.remove(position);
-            } else {
-                mAdapter.add(position,String.valueOf(position));
-            }
+//            if (position % 2 == 0) {
+//                mAdapter.remove(position);
+//            } else {
+//                mAdapter.add(position,String.valueOf(position));
+//            }
+            TreeMap<String,String> param=new TreeMap<>();
+            param.put("name","lee");
+            OkHttpUtil.httpGet("https://www.baidu.com", new OnDataReceviceListener() {
+                @Override
+                public void onSuccess(String url, String jsonResponse) {
+                    System.out.println("url " + jsonResponse);
+                }
+
+                @Override
+                public void onFailed(String url, int errorCode) {
+                    System.out.println("url "+errorCode);
+                }
+            },param);
         }
     };
 }
