@@ -23,7 +23,7 @@ import jp.wasabeef.recyclerview.animators.FadeInAnimator;
 /**
  * Created by liyong on 15/5/11.
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements OnDataReceviceListener {
     private RecyclerView mRecyclerView;
     private List<String> myDataset;
     private LinearLayoutManager mLayoutManager;
@@ -53,9 +53,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initDataBeforeSetViews() {
         myDataset = new ArrayList<>();
-        String []functions=getResources().getStringArray(R.array.functions);
+        String[] functions = getResources().getStringArray(R.array.functions);
         myDataset.addAll(Arrays.asList(functions));
-       // mGridLayoutManager=new GridLayoutManager(this,2);
+        // mGridLayoutManager=new GridLayoutManager(this,2);
         mLayoutManager = new LinearLayoutManager(this);
     }
 
@@ -99,9 +99,9 @@ public class MainActivity extends BaseActivity {
 //            } else {
 //                mAdapter.add(position,String.valueOf(position));
 //            }
-            TreeMap<String,String> param=new TreeMap<>();
-            param.put("name","lee");
-            OkHttpUtil.httpGet("https://www.baidu.com", new OnDataReceviceListener() {
+            TreeMap<String, String> param = new TreeMap<>();
+            param.put("name", "lee");
+            OkHttpUtil.httpPost("https://www.baidu.com", new OnDataReceviceListener() {
                 @Override
                 public void onSuccess(String url, String jsonResponse) {
                     System.out.println("url " + jsonResponse);
@@ -109,9 +109,19 @@ public class MainActivity extends BaseActivity {
 
                 @Override
                 public void onFailed(String url, int errorCode) {
-                    System.out.println("url "+errorCode);
+                    System.out.println("url " + errorCode);
                 }
-            },param);
+            }, param);
         }
     };
+
+    @Override
+    public void onSuccess(String url, String jsonResponse) {
+
+    }
+
+    @Override
+    public void onFailed(String url, int errorCode) {
+
+    }
 }

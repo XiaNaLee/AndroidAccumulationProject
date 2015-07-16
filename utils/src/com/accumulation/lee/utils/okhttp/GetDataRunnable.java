@@ -53,8 +53,9 @@ public class GetDataRunnable implements Runnable {
             Response response = okHttpClient.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = response.body().toString();
-                if (null != dataReceviceListener)
+                if (null != dataReceviceListener){
                     dataReceviceListener.onSuccess(url, result);
+                }
             } else {
                 if (null != dataReceviceListener) {
                     int errorCode = response.code();

@@ -55,6 +55,11 @@ public class OkHttpUtil {
         mOkHttpClient.getDispatcher().getExecutorService().execute(getDataRunnable);
     }
 
+    public static void httpPost(String url, OnDataReceviceListener dataReceviceListener,TreeMap<String, String> params) {
+        PostDataRunnable postDataRunnable = new PostDataRunnable(dataReceviceListener, mOkHttpClient, url,params);
+        mOkHttpClient.getDispatcher().getExecutorService().execute(postDataRunnable);
+    }
+
     /**
      * 取消网络请求
      *
