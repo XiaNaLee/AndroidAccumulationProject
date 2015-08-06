@@ -24,6 +24,8 @@ public class PostDataRunnable implements Runnable {
 
     private TreeMap<String, String> params;
 
+   // private Handler mHandler=new Handler();
+
     public PostDataRunnable(OnDataReceviceListener dataReceviceListener, OkHttpClient okHttpClient, String url, TreeMap<String, String> params) {
         this.dataReceviceListener = dataReceviceListener;
         this.okHttpClient = okHttpClient;

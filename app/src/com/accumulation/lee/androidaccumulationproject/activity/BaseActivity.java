@@ -41,7 +41,6 @@ public abstract class BaseActivity extends Activity {
         findViews();
         initDataBeforeSetViews();
         setViews();
-
     }
 
     @Override
