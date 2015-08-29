@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">AndroidAccumulationProject</string>
     <string-array name="functions">
-        <item>RecyclerView控件</item>
-        <item>其他</item>
+        <item>1</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+
     </string-array>
 </resources>

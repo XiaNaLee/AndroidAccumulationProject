@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.text.format.Formatter;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,24 +30,26 @@ public class FileUtil {
 
     /**
      * 判断是否存在sd卡
+     *
      * @return
      */
     public static boolean hasSdcard() {
         String status = Environment.getExternalStorageState();
-        return status.equals(Environment.MEDIA_MOUNTED)?true:false;
+        return status.equals(Environment.MEDIA_MOUNTED) ? true : false;
     }
 
-    public static String getSDPath(){
-        String sd="";
-        if(hasSdcard()){
-            sd=Environment.getExternalStorageDirectory().getAbsolutePath();
+    public static String getSDPath() {
+        String sd = "";
+        if (hasSdcard()) {
+            sd = Environment.getExternalStorageDirectory().getAbsolutePath();
         }
-        return  sd;
+        return sd;
     }
 
     /**
      * 获取手机可用的内存空间
      * 返回单位 G  如  “1.5GB”
+     *
      * @return
      */
     public static String getAvailableSDRomString(Context mContext) {
@@ -61,6 +65,7 @@ public class FileUtil {
 
     /**
      * 对文件设置root权限
+     *
      * @param filePath
      * @return
      */
@@ -68,7 +73,7 @@ public class FileUtil {
         Process process = null;
         DataOutputStream os = null;
         try {
-            String cmd="chmod 777 " + filePath;
+            String cmd = "chmod 777 " + filePath;
             process = Runtime.getRuntime().exec("su"); //切换到root帐号
             os = new DataOutputStream(process.getOutputStream());
             os.writeBytes(cmd + "\n");
@@ -91,12 +96,13 @@ public class FileUtil {
 
     /**
      * 从Assets中读取文件
+     *
      * @param context
      * @param fileName
      * @return
      * @throws FileNotFoundException
      */
-    public static InputStream getFromAssets(Context context,String fileName)
+    public static InputStream getFromAssets(Context context, String fileName)
             throws FileNotFoundException {
         InputStream inputStream = null;
         try {
@@ -153,7 +159,7 @@ public class FileUtil {
      *
      * @param filePath
      * @param content
-     * @param append is append, if true, write to the end of file, else clear content of file and write into it
+     * @param append   is append, if true, write to the end of file, else clear content of file and write into it
      * @return return false if content is empty, true otherwise
      * @throws RuntimeException if an error occurs while operator FileWriter
      */
@@ -187,7 +193,7 @@ public class FileUtil {
      *
      * @param filePath
      * @param contentList
-     * @param append is append, if true, write to the end of file, else clear content of file and write into it
+     * @param append      is append, if true, write to the end of file, else clear content of file and write into it
      * @return return false if contentList is empty, true otherwise
      * @throws RuntimeException if an error occurs while operator FileWriter
      */
@@ -260,8 +266,8 @@ public class FileUtil {
      * write file
      *
      * @param filePath the file to be opened for writing.
-     * @param stream the input stream
-     * @param append if <code>true</code>, then bytes will be written to the end of the file rather than the beginning
+     * @param stream   the input stream
+     * @param append   if <code>true</code>, then bytes will be written to the end of the file rather than the beginning
      * @return return true
      * @throws RuntimeException if an error occurs while operator FileOutputStream
      */
@@ -284,7 +290,7 @@ public class FileUtil {
     /**
      * write file
      *
-     * @param file the file to be opened for writing.
+     * @param file   the file to be opened for writing.
      * @param stream the input stream
      * @param append if <code>true</code>, then bytes will be written to the end of the file rather than the beginning
      * @return return true
@@ -403,7 +409,7 @@ public class FileUtil {
 
     /**
      * get file name from path, not include suffix
-     *
+     * <p/>
      * <pre>
      *      getFileNameWithoutExtension(null)               =   null
      *      getFileNameWithoutExtension("")                 =   ""
@@ -441,7 +447,7 @@ public class FileUtil {
 
     /**
      * get file name from path, include suffix
-     *
+     * <p/>
      * <pre>
      *      getFileName(null)               =   null
      *      getFileName("")                 =   ""
@@ -471,7 +477,7 @@ public class FileUtil {
 
     /**
      * get folder name from path
-     *
+     * <p/>
      * <pre>
      *      getFolderName(null)               =   null
      *      getFolderName("")                 =   ""
@@ -503,7 +509,7 @@ public class FileUtil {
 
     /**
      * get suffix of file from path
-     *
+     * <p/>
      * <pre>
      *      getFileExtension(null)               =   ""
      *      getFileExtension("")                 =   ""
@@ -641,5 +647,25 @@ public class FileUtil {
         return (file.exists() && file.isFile() ? file.length() : -1);
     }
 
+
+    public static final InputStream byte2Input(byte[] buf) {
+        return new ByteArrayInputStream(buf);
+    }
+
+    public static final byte[] input2byte(InputStream inStream) {
+        try {
+            ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
+            byte[] buff = new byte[100];
+            int rc = 0;
+            while ((rc = inStream.read(buff, 0, 100)) > 0) {
+                swapStream.write(buff, 0, rc);
+            }
+            byte[] in2b = swapStream.toByteArray();
+            return in2b;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return  null;
+    }
 
 }

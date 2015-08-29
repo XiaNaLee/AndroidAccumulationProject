@@ -8,7 +8,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 /**
  * Created by lee on 15/7/16.
  */
-public class OnRcvScrollListener extends RecyclerView.OnScrollListener implements OnBottomListener {
+public class OnRcvScrollListener extends RecyclerView.OnScrollListener {
 
     private String TAG = getClass().getSimpleName();
 
@@ -36,6 +36,13 @@ public class OnRcvScrollListener extends RecyclerView.OnScrollListener implement
      * 当前滑动的状态
      */
     private int currentScrollState = 0;
+
+    private OnBottomListener onBottomListener;
+
+    public OnRcvScrollListener(LAYOUT_MANAGER_TYPE layoutManagerType,OnBottomListener onBottomListener){
+        this.layoutManagerType=layoutManagerType;
+        this.onBottomListener=onBottomListener;
+    }
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -87,16 +94,13 @@ public class OnRcvScrollListener extends RecyclerView.OnScrollListener implement
         int totalItemCount = layoutManager.getItemCount();
         if ((visibleItemCount > 0 && currentScrollState == RecyclerView.SCROLL_STATE_IDLE &&
                 (lastVisibleItemPosition) >= totalItemCount - 1)) {
-            //Log.d(TAG, "is loading more");
-            onBottom();
+           if(null!=onBottomListener)
+               onBottomListener.onBottom();
         }
     }
 
 
-    @Override
-    public void onBottom() {
-        //Log.d(TAG, "is onBottom");
-    }
+
 
     private int findMax(int[] lastPositions) {
         int max = lastPositions[0];

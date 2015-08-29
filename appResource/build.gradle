@@ -47,4 +47,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile project(':customWidget')
     compile project(':utils')
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.okio:okio:1.4.0'
+    compile 'com.facebook.fresco:fresco:0.5.3+'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'io.reactivex:rxandroid:1.0.1'
 }
